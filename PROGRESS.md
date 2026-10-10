@@ -14,7 +14,7 @@ Features and "Done when":
 5. Reminder: set a reminder for 1 minute from now, close the app, a notification appears.
 
 ## Status
-Phase: 3 (list, calendar, photo built, waiting for user test)
+Phase: 3 (icons + holidays built, waiting for user test; reminders next)
 Last run: none yet
 Done: Phase 0 scope
 Next: push skeleton, check first build is green

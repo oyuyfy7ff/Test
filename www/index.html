@@ -12,28 +12,29 @@
     <section id="view-list"><div id="list"></div></section>
     <section id="view-cal" hidden>
       <div class="calbar">
-        <button id="prev" type="button">‹</button>
+        <button id="prev" type="button" aria-label="เดือนก่อน"><span data-i="left"></span></button>
         <strong id="monthlabel"></strong>
-        <button id="next" type="button">›</button>
+        <button id="next" type="button" aria-label="เดือนถัดไป"><span data-i="right"></span></button>
       </div>
       <div id="grid" class="grid"></div>
       <div id="dayevents"></div>
+      <div id="monthhol"></div>
     </section>
     <pre id="err"></pre>
   </main>
-  <button id="fab" type="button" aria-label="เพิ่ม">＋</button>
+  <button id="fab" type="button" aria-label="เพิ่ม"><span data-i="plus"></span></button>
   <nav>
-    <button id="tab-list" class="on" type="button">📋 รายการ</button>
-    <button id="tab-cal" type="button">📅 ปฏิทิน</button>
+    <button id="tab-list" class="on" type="button"><span data-i="list"></span><span>รายการ</span></button>
+    <button id="tab-cal" type="button"><span data-i="calendar"></span><span>ปฏิทิน</span></button>
   </nav>
   <div id="sheet" class="overlay" hidden>
     <div class="panel">
       <h2 id="sheettitle">เพิ่มวันสำคัญ</h2>
-      <label>ชื่อ<input id="f-name" type="text" placeholder="เช่น สอบ TCAS"></label>
+      <label>ชื่อ<input id="f-name" type="text" placeholder="เช่น สอบปลายภาค"></label>
       <label>วันที่<input id="f-date" type="date"></label>
       <label>โน้ต<textarea id="f-note" rows="2"></textarea></label>
       <div id="photobox"></div>
-      <button id="photobtn" type="button" class="ghost">📷 เพิ่มรูป</button>
+      <button id="photobtn" type="button" class="ghost"></button>
       <input id="f-photo" type="file" accept="image/*" hidden>
       <p id="formerr" class="error"></p>
       <div class="row">
