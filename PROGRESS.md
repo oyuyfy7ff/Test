@@ -16,14 +16,14 @@ Features and "Done when":
 
 ## Status
 Phase: 3 (Features)
-Last run: not checked (run `gh run list --limit 1`)
-Done: Phase 0, 1. Features 1-5 built (reminders waiting for user test). Feature 6 (sound) built, not built on GitHub Actions yet.
-Next: push, check the run is green, user tests Done-when line 6, then line 5 again.
+Last run: 38064476837 - success
+Done: Phase 0, 1, 2. Features 1-5 built. Feature 6 (sound) built, build green, waiting for user test on the phone.
+Next: user tests Done-when line 6 (and line 5 again), then reports the result.
 
 ## Handoff
 Last worked by: Claude, 2026-10-10
 Changed: www/notify.js (5 sound channels snd_<name>, channelId and sound per event), www/app.js + www/index.html + www/style.css (sound picker and Listen button), tools/make_sounds.py (new, makes 5 WAV files), .github/workflows/build.yml (new step "Make reminder sound files")
-Not tested: build, the picker on the phone, sound when the notification fires
+Not tested: the picker on the phone, sound when the notification fires
 
 ## File tree (current)
 - capacitor.config.json: app id and name
@@ -33,7 +33,7 @@ Not tested: build, the picker on the phone, sound when the notification fires
 - www/app.js: list, calendar, photos, storage, sound picker
 - www/notify.js: reminders, sound list, notification channels
 - tools/make_sounds.py: makes www/sounds/*.wav and android/app/src/main/res/raw/*.wav (not committed, made by the build)
-- android/: generated Android project (committed after the first build)
+- android/: generated Android project
 - .github/workflows/build.yml: builds the APK
 - PROGRESS.md: this file
 
