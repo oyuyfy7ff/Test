@@ -1,0 +1,21 @@
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 16px;
+}
+main {
+  text-align: center;
+  margin-top: 64px;
+}
+h1 {
+  font-size: 64px;
+}
+button {
+  font-size: 20px;
+  padding: 12px 32px;
+}
+#err {
+  color: #b00020;
+  white-space: pre-wrap;
+  text-align: left;
+}
