@@ -32,7 +32,7 @@ let photo = "";
 
 function $(id) { return document.getElementById(id); }
 function load() { try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) { return []; } }
-function save() { try { localStorage.setItem(KEY, JSON.stringify(events)); return true; } catch (e) { return false; } }
+function save() { try { localStorage.setItem(KEY, JSON.stringify(events)); scheduleAll(); return true; } catch (e) { return false; } }
 function svg(name) {
   return '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ICONS[name] + "</svg>";
 }
@@ -179,7 +179,7 @@ function openSheet(id) {
     { name: "", date: (view === "cal" && selDay) ? selDay : iso(t.getFullYear(), t.getMonth(), t.getDate()), note: "", photo: "" };
   $("sheettitle").textContent = id ? "แก้ไขวันสำคัญ" : "เพิ่มวันสำคัญ";
   $("f-name").value = ev.name;
-  $("f-date").value = ev.date;
+  $("f-date").value = ev.date; $("f-time").value = ev.time || "09:00"; $("f-remind").value = ev.remind || "";
   $("f-note").value = ev.note;
   photo = ev.photo;
   $("formerr").textContent = "";
@@ -217,7 +217,7 @@ $("save").addEventListener("click", function () {
   const date = $("f-date").value;
   if (!name) { $("formerr").textContent = "ใส่ชื่อก่อน"; return; }
   if (!date) { $("formerr").textContent = "เลือกวันที่ก่อน"; return; }
-  const data = { name: name, date: date, note: $("f-note").value.trim(), photo: photo };
+  const data = { name: name, date: date, note: $("f-note").value.trim(), photo: photo, time: $("f-time").value || "09:00", remind: $("f-remind").value };
   const old = events.slice();
   if (editId) {
     events = events.map(function (e) { return e.id === editId ? Object.assign({ id: editId }, data) : e; });
@@ -240,3 +240,4 @@ document.querySelectorAll("[data-i]").forEach(function (n) {
   n.innerHTML = svg(n.getAttribute("data-i"));
 });
 show("list");
+scheduleAll();

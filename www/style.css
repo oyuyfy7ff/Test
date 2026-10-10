@@ -52,3 +52,4 @@ nav button.on{color:var(--main);font-weight:700}
 .row{display:flex;gap:8px;margin-top:12px}
 .row button{flex:1}
 .error,#err{color:#b00020;white-space:pre-wrap;margin:4px 0}
+select{width:100%;font-size:16px;min-height:48px;border:1px solid #8884;border-radius:12px;padding:8px 12px;background:var(--bg);color:var(--text);font-family:inherit}
