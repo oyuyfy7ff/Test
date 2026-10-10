@@ -1,3 +1,32 @@
+const SOUNDS = [
+  { id: "chime", name: "ระฆังใส" },
+  { id: "bell", name: "กระดิ่ง" },
+  { id: "melody", name: "ทำนองสั้น" },
+  { id: "drop", name: "หยดน้ำ" },
+  { id: "beep", name: "บี๊บ" }
+];
+function soundOf(ev) {
+  return SOUNDS.some(function (x) { return x.id === ev.sound; }) ? ev.sound : "chime";
+}
+function previewSound(id) {
+  try {
+    const a = new Audio("sounds/" + id + ".wav");
+    const r = a.play();
+    if (r && r.catch) r.catch(function () {});
+  } catch (e) {}
+}
+async function makeChannels(ln) {
+  for (const x of SOUNDS) {
+    await ln.createChannel({
+      id: "snd_" + x.id,
+      name: "เสียง: " + x.name,
+      description: "แจ้งเตือนวันสำคัญด้วยเสียง " + x.name,
+      importance: 4,
+      sound: x.id + ".wav",
+      vibration: true
+    });
+  }
+}
 function LN() {
   return window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.LocalNotifications;
 }
@@ -30,6 +59,8 @@ async function scheduleAll() {
         id: i + 1,
         title: ev.name,
         body: remindText(ev) + " (" + pretty(ev.date) + ")",
+        channelId: "snd_" + soundOf(ev),
+        sound: soundOf(ev) + ".wav",
         schedule: { at: at, allowWhileIdle: true }
       });
     });
@@ -40,6 +71,7 @@ async function scheduleAll() {
       document.getElementById("err").textContent += "ยังไม่ได้อนุญาตการแจ้งเตือน\n";
       return;
     }
+    await makeChannels(ln);
     await ln.schedule({ notifications: items });
   } catch (e) {
     document.getElementById("err").textContent += "แจ้งเตือน: " + e + "\n";

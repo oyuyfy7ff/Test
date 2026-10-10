@@ -25,6 +25,8 @@ jobs:
       - name: Install dependencies
         run: |
           if [ -f package-lock.json ]; then npm ci; else npm install; fi
+      - name: Make reminder sound files
+        run: python3 tools/make_sounds.py
       - name: Check JavaScript syntax
         continue-on-error: true
         run: |

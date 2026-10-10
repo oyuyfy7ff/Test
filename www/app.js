@@ -179,7 +179,7 @@ function openSheet(id) {
     { name: "", date: (view === "cal" && selDay) ? selDay : iso(t.getFullYear(), t.getMonth(), t.getDate()), note: "", photo: "" };
   $("sheettitle").textContent = id ? "แก้ไขวันสำคัญ" : "เพิ่มวันสำคัญ";
   $("f-name").value = ev.name;
-  $("f-date").value = ev.date; $("f-time").value = ev.time || "09:00"; $("f-remind").value = ev.remind || "";
+  $("f-date").value = ev.date; $("f-time").value = ev.time || "09:00"; $("f-remind").value = ev.remind || ""; $("f-sound").value = soundOf(ev);
   $("f-note").value = ev.note;
   photo = ev.photo;
   $("formerr").textContent = "";
@@ -217,7 +217,7 @@ $("save").addEventListener("click", function () {
   const date = $("f-date").value;
   if (!name) { $("formerr").textContent = "ใส่ชื่อก่อน"; return; }
   if (!date) { $("formerr").textContent = "เลือกวันที่ก่อน"; return; }
-  const data = { name: name, date: date, note: $("f-note").value.trim(), photo: photo, time: $("f-time").value || "09:00", remind: $("f-remind").value };
+  const data = { name: name, date: date, note: $("f-note").value.trim(), photo: photo, time: $("f-time").value || "09:00", remind: $("f-remind").value, sound: $("f-sound").value };
   const old = events.slice();
   if (editId) {
     events = events.map(function (e) { return e.id === editId ? Object.assign({ id: editId }, data) : e; });
@@ -229,6 +229,12 @@ $("save").addEventListener("click", function () {
   render();
 });
 $("cancel").addEventListener("click", function () { $("sheet").hidden = true; });
+SOUNDS.forEach(function (x) {
+  const o = document.createElement("option");
+  o.value = x.id; o.textContent = x.name;
+  $("f-sound").appendChild(o);
+});
+$("soundtest").addEventListener("click", function () { previewSound($("f-sound").value); });
 $("fab").addEventListener("click", function () { openSheet(); });
 $("tab-list").addEventListener("click", function () { show("list"); });
 $("tab-cal").addEventListener("click", function () { show("cal"); });
